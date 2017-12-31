@@ -46,8 +46,6 @@ function printMovieGyphs() {
 
 populateButtons();
 
-
-
 //create gyphs
 $(".movie-btn").on("click", function() {
 
@@ -71,7 +69,13 @@ $(".movie-btn").on("click", function() {
   });
 });
 
+//add new button to header
+$("#add-btn").on("click", function() {
+  console.log("add clicked ");
+  var x = $(".form-control").val();
+  console.log(x);
 
+})
 
 function enableClickGyph() {
   $("img").on("click", function() {
@@ -91,12 +95,3 @@ function enableClickGyph() {
     }
   });
 }
-
-//add new button to header
-$("add_btn").on("click", function() {
-
-  //check to see if anything is in the form
-  console.log($(".form-control").val());
-  console.log("new clicked");
-  movieClick()
-})
