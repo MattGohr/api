@@ -17,16 +17,25 @@ var searchPath = "/v1/gifs/search?q=";
 var movieObj;
 
 
-function populateButtons() {
-  for (var i = 0; i < topics.length; i++) {
+function populateButtons(newGyphName) {
+  if (newGyphName) {
     var newBtn = $("<button>");
     newBtn.attr('class', 'btn btn-secondary movie-btn');
-    newBtn.attr('id', topics[i].replace(/ /g, "-"));
-    newBtn.text(topics[i]);
+    newBtn.attr('id', newGyphName.replace(/ /g, "-"));
+    newBtn.text(newGyphName);
     // $("#movie-buttons").append('<button class=\"btn btn-secondary\" id=\"' + topics[i].replace(/ /g, "-") + "\">" + topics[i] + '</button>');
     $("#movie-buttons").append(newBtn);
-    console.log(topics[i]);
-  };
+  } else {
+    for (var i = 0; i < topics.length; i++) {
+      var newBtn = $("<button>");
+      newBtn.attr('class', 'btn btn-secondary movie-btn');
+      newBtn.attr('id', topics[i].replace(/ /g, "-"));
+      newBtn.text(topics[i]);
+      // $("#movie-buttons").append('<button class=\"btn btn-secondary\" id=\"' + topics[i].replace(/ /g, "-") + "\">" + topics[i] + '</button>');
+      $("#movie-buttons").append(newBtn);
+      console.log(topics[i]);
+    };
+  }
 };
 
 function printMovieGyphs() {
@@ -74,7 +83,7 @@ $("#add-btn").on("click", function() {
   console.log("add clicked ");
   var x = $(".form-control").val();
   console.log(x);
-
+  populateButtons(x);
 })
 
 function enableClickGyph() {
