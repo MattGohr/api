@@ -40,14 +40,19 @@ function printMovieGyphs() {
     newGyph.attr('alt', 'still');
     $("#picture-container").append(newGyph);
 
-
   }
 
 }
 
 populateButtons();
 
+
+
+//create gyphs
 $(".movie-btn").on("click", function() {
+
+  //clear gyps contents
+  $("#picture-container").children("img").remove();
 
   //replace spaces with "+"
   var searchWord = $(this).text().replace(/ /g, "+");
@@ -62,15 +67,13 @@ $(".movie-btn").on("click", function() {
     console.log(movieObj);
     //print outmovie objects
     printMovieGyphs();
-    enableClickEvent();
+    enableClickGyph();
   });
-
-
-
 });
 
-//will replace the moving image with still image
-function enableClickEvent() {
+
+
+function enableClickGyph() {
   $("img").on("click", function() {
     var alt = $(this).attr('alt');
 
@@ -86,8 +89,14 @@ function enableClickEvent() {
       $(this).attr('src', src.replace(".gif", "_s.gif"))
       $(this).attr('alt', 'still');
     }
-
-
-
-  })
+  });
 }
+
+//add new button to header
+$("add_btn").on("click", function() {
+
+  //check to see if anything is in the form
+  console.log($(".form-control").val());
+  console.log("new clicked");
+  movieClick()
+})
