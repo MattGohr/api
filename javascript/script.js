@@ -21,18 +21,14 @@ function populateButtons(newGyphName) {
   if (newGyphName) {
     var newBtn = $("<button>");
     newBtn.attr('class', 'btn btn-secondary movie-btn');
-    var newBtnId = newGyphName.replace(/ /g, "-")
+    var newBtnId = newGyphName.replace(/ /g, "-");
     newBtn.attr('id', newBtnId);
     newBtn.text(newGyphName);
     // $("#movie-buttons").append('<button class=\"btn btn-secondary\" id=\"' + topics[i].replace(/ /g, "-") + "\">" + topics[i] + '</button>');
     $("#movie-buttons").append(newBtn);
 
     //enable click event
-    enableMoviebtnClick("#" + newBtnId)
-    $("#" + newBtnId).on("click", function() {
-
-      console.log("new click event");
-    });
+    enableMoviebtnClick("#" + newBtnId);
 
   } else {
     for (var i = 0; i < topics.length; i++) {
@@ -67,9 +63,8 @@ enableMoviebtnClick();
 
 function enableMoviebtnClick(Id) {
 
-  if (Id) {
-    //use id Btn
-  } else {
+  //if adding new btn then only enable click event for the button
+  if (!Id) {
     Id = ".movie-btn"
   }
   //create gyphs
@@ -84,7 +79,6 @@ function enableMoviebtnClick(Id) {
     //run api request
     $.ajax({
       url: host + searchPath + searchWord + key + limit,
-      // url: "http://api.giphy.com/v1/gifs/search?q=Avengers" + key + limit,
       method: "GET"
     }).done(function(response) {
       movieObj = response;
@@ -99,9 +93,7 @@ function enableMoviebtnClick(Id) {
 
 //add new button to header
 $("#add-btn").on("click", function() {
-  console.log("add clicked ");
   var x = $(".form-control").val();
-  console.log(x);
   populateButtons(x);
 })
 
