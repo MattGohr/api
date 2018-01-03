@@ -21,10 +21,19 @@ function populateButtons(newGyphName) {
   if (newGyphName) {
     var newBtn = $("<button>");
     newBtn.attr('class', 'btn btn-secondary movie-btn');
-    newBtn.attr('id', newGyphName.replace(/ /g, "-"));
+    var newBtnId = newGyphName.replace(/ /g, "-")
+    newBtn.attr('id', newBtnId);
     newBtn.text(newGyphName);
     // $("#movie-buttons").append('<button class=\"btn btn-secondary\" id=\"' + topics[i].replace(/ /g, "-") + "\">" + topics[i] + '</button>');
     $("#movie-buttons").append(newBtn);
+
+    //enable click event
+    enableMoviebtnClick("#" + newBtnId)
+    $("#" + newBtnId).on("click", function() {
+
+      console.log("new click event");
+    });
+
   } else {
     for (var i = 0; i < topics.length; i++) {
       var newBtn = $("<button>");
@@ -54,29 +63,39 @@ function printMovieGyphs() {
 }
 
 populateButtons();
+enableMoviebtnClick();
 
-//create gyphs
-$(".movie-btn").on("click", function() {
+function enableMoviebtnClick(Id) {
 
-  //clear gyps contents
-  $("#picture-container").children("img").remove();
+  if (Id) {
+    //use id Btn
+  } else {
+    Id = ".movie-btn"
+  }
+  //create gyphs
+  $(Id).on("click", function() {
 
-  //replace spaces with "+"
-  var searchWord = $(this).text().replace(/ /g, "+");
+    //clear gyps contents
+    $("#picture-container").children("img").remove();
 
-  //run api request
-  $.ajax({
-    url: host + searchPath + searchWord + key + limit,
-    // url: "http://api.giphy.com/v1/gifs/search?q=Avengers" + key + limit,
-    method: "GET"
-  }).done(function(response) {
-    movieObj = response;
-    console.log(movieObj);
-    //print outmovie objects
-    printMovieGyphs();
-    enableClickGyph();
+    //replace spaces with "+"
+    var searchWord = $(this).text().replace(/ /g, "+");
+
+    //run api request
+    $.ajax({
+      url: host + searchPath + searchWord + key + limit,
+      // url: "http://api.giphy.com/v1/gifs/search?q=Avengers" + key + limit,
+      method: "GET"
+    }).done(function(response) {
+      movieObj = response;
+      console.log(movieObj);
+      //print outmovie objects
+      printMovieGyphs();
+      enableClickGyph();
+    });
   });
-});
+}
+
 
 //add new button to header
 $("#add-btn").on("click", function() {
